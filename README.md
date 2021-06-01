@@ -37,8 +37,8 @@ yarn dev
 3. Enable authentication with email and password
 4. Add three collections to your Firestore database:
 
-1. Globals - add document with field "counter" and a random number of 6 digits
-2. Running
-3. Users
+- Globals - add document with field "counter" and a random number of 6 digits
+- Running
+- Users
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

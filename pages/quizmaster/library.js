@@ -2,36 +2,17 @@ import React from 'react';
 //NEXT
 import { useRouter } from 'next/router';
 //MATERIAL UI
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography } from '@material-ui/core';
 //CONTEXT
 import { useQuizMaster } from '../../context/quizMasterContext';
 import { useAuth } from '../../context/authContext';
+//STYLES
+import { useStyles } from './styles';
 //COMPONENTS
-import { 
-    SubTitle, 
-    UnderTitle
-} from '../../components/BaseComponents';
+import { SubTitle } from '../../components/BaseComponents';
 import ListItem from '../../components/PageComponents/ListItem';
-import PageContainer from '../../components/PageComponents/PageContainer';
+import PageContainer from '../../components/PageComponents/PageContainer/';
 
-const useStyles = makeStyles((theme) => ({
-    gridContainer: {
-        width: '80%',
-        maxWidth: '720px',
-        alignContent: 'center',
-        marginRight: 'auto',
-        marginLeft: 'auto'
-    },
-    titleContainer: {
-        color: theme.palette.primary.contrastText,
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    underTitle: {
-        color: theme.palette.primary.contrastText,
-    }
-}))
 
 function library() {
     const { quizes, userData } = useQuizMaster();
@@ -41,7 +22,7 @@ function library() {
     const user = userData.uid
     const classes = useStyles();
 
-    //===========================================AUTHENTICATION
+    //AUTHENTICATION
     
     if(loading){
         return(
@@ -55,32 +36,39 @@ function library() {
     };
 
     return (
-        <PageContainer user={user}>
+        <PageContainer title={"Quiz library"} user={user}>
             <Grid 
             className={classes.gridContainer}
-            spacing={4}
+            spacing={2}
             direction='column'
             alignItems='center'
             justify='space-evenly'
             container >
                 <Grid className={classes.titleContainer} item xs={12}>
-                    <SubTitle component={'h1'}>Library</SubTitle>
-                    <UnderTitle component={'h2'} className={classes.underTitle}>Here are all your previous quizes. Select one to edit or to get started!</UnderTitle>
+                   <SubTitle component={'h1'}>Library</SubTitle>
+                   <Typography component={'h2'} variant={'h4'} className={classes.underTitle}>
+                       {quizes.length > 1 ? 'Here are all your previous quizes. Select one to edit or to get started!' : 'Here you will find all the quizes you have created. Press Create in the menu to get started!'}
+                    </Typography>
                 </Grid>
                 <Grid 
                 container 
+                direction="row"
                 spacing={2}
+                justify="flex-start"
+                alignItems="flex-start"
                 >
-                {quizes && quizes.map((i, index) => {
-                    return (
-                        <ListItem 
-                        key={index} 
-                        title={i.quizName}
-                        ariaLabelEdit={"click to edit quiz"}
-                        handleEdit={() => router.push(`/createquiz/${i.id}`)}  
-                        />
-                        )
-                })}
+                    {quizes && quizes.map((i, index) => {
+                        return (
+                            <Grid key={index} item xs={12} sm={6}>
+                            <ListItem 
+                            title={i.quizName}
+                            ariaLabelEdit={"click to edit quiz"}
+                            handleEdit={() => router.push(`/createquiz/${i.id}`)}  
+                            />
+                            </Grid>
+                            )
+                        })
+                    }
                 </Grid>
             </Grid>
         </PageContainer>
@@ -88,7 +76,3 @@ function library() {
 }
 
 export default library;
-
-{/* <Link href={`/createquiz/${i.id}`}>
-                                    <a>{i.quizName}</a>
-                                </Link> */}

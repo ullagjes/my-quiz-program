@@ -33,7 +33,6 @@ function QuizForm({ quizPin, userId }) {
             onSubmit={addNewQuizFirestore}
             initialValues={initialValues}
             buttonText={'Create'}
-            formTitle={'Create a new quiz'}
             >
                 <FormItem 
                 fieldName={'title'}

@@ -4,10 +4,20 @@ import React, {
 } from 'react';
 //NEXT
 import { useRouter } from 'next/router';
+//MATERIAL UI
+import { 
+    Grid,
+    Typography
+} from '@material-ui/core';
 //CONTEXT
 import { useAuth } from '../../../context/authContext';
 //UTILS
-import { getQuestionData, updateQuestionData } from '../../../utils/firebaseHelpers';
+import { 
+    getQuestionData, 
+    updateQuestionData 
+} from '../../../utils/firebaseHelpers';
+//STYLES
+import { useStyles } from './styles';
 //COMPONENTS
 import QuestionForm from '../../../components/FormComponents/QuestionForm';
 import PageContainer from '../../../components/PageComponents/PageContainer';
@@ -17,8 +27,12 @@ import PageContainer from '../../../components/PageComponents/PageContainer';
 function editQuestion() {
     const router = useRouter();
     const { id, dynamic } = router.query;
+
+    const classes = useStyles();
+
     const { user, loading, isAuthenticated } = useAuth();
     const [questionData, setQuestionData] = useState(null)
+    const [success, setSuccess] = useState(false)
 
     useEffect(() => {
         if(user){
@@ -36,6 +50,7 @@ function editQuestion() {
     //UPDATES FIRESTORE DATA
     async function updateQuestion(values){
         await updateQuestionData(user.uid, id, dynamic, values)
+        setSuccess(true)
         router.push(`/createquiz/${id}`)
     }
 
@@ -52,20 +67,33 @@ function editQuestion() {
     };
 
     return (
-        <PageContainer user={user}>
-            {questionData && 
-            <QuestionForm 
-            initialValues={{
-                title: questionData.title,
-                option_one: questionData.options.option_one,
-                option_two: questionData.options.option_two,
-                option_three: questionData.options.option_three,
-                option_four: questionData.options.option_four,
-                correctAnswers: [...questionData.correctAnswers]
-                }} 
-            onSubmit={updateQuestion}
-            />
-            } 
+        <PageContainer title={"Update question"} user={user}>
+            <Grid 
+            container 
+            direction="column"
+            alignItems="center" 
+            justify="center">
+                <Grid item xs={12}>
+                    <Typography variant="h3" component="h1" className={classes.title}>Edit question</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    {questionData && 
+                    <QuestionForm 
+                    initialValues={{
+                        title: questionData.title,
+                        option_one: questionData.options.option_one,
+                        option_two: questionData.options.option_two,
+                        option_three: questionData.options.option_three,
+                        option_four: questionData.options.option_four,
+                        correctAnswers: [...questionData.correctAnswers]
+                        }} 
+                    onSubmit={updateQuestion}
+                    feedBack={"Question updated! Please wait..."}
+                    success={success}
+                    />
+                    } 
+                </Grid>
+            </Grid>
         </PageContainer>
     );
 }

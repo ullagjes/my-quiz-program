@@ -3,41 +3,11 @@ import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-    errorMessage: {
-        color: theme.palette.warning.contrastText,
-        borderBottom: `2px solid ${theme.palette.warning.main}`,
-        fontSize: '1.2rem',
-        paddingLeft: theme.spacing(3),
-        marginTop: theme.spacing(1),
-        backgroundColor: theme.palette.warning.light,
-    },
-    field: {
-        '&::placeholder': {
-            color: theme.palette.secondary.dark,
-            fontSize: '1rem'
-        },
-        padding: theme.spacing(3),
-        width: '100%',
-        border: 'none',
-        fontSize: '1rem',
-        color: theme.palette.text.main,
-        backgroundColor: theme.palette.transparent.main,
-    },
-    itemContainer: {
-        borderBottom: theme.borders.thin,
-        margin: theme.spacing(2),
-    },
-    label: {
-        padding: theme.spacing(2),
-        fontSize: '1.2rem',
-        color: theme.palette.text.main,
-    },
-}))
+import { useStyles } from './styles';
 
 function FormItem({
+    largeTitle,
     fieldName, 
     fieldType,
     placeholder, 
@@ -53,7 +23,7 @@ function FormItem({
         <Grid item xs={12} className={classes.itemContainer}>
             <label 
             htmlFor={fieldName} 
-            className={classes.label}>
+            className={largeTitle ? `${classes.labelLarge} + ${classes.label}` : classes.label}>
                 {labelText}
             </label>
             <Field 

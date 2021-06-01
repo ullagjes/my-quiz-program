@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 //YUP
 import * as Yup from 'yup'
 //NEXT
 import { useRouter } from 'next/router';
+//MATERIAL-UI
+import Alert from '@material-ui/lab/Alert';
+import { Grid } from '@material-ui/core';
 //UTILS
 import { createUserInFirestore } from '../utils/firebaseHelpers';
 import firebaseInstance from '../utils/firebase';
+//STYLES
+import { useStyles } from './styles';
 //COMPONENTS
 import FormComponent from '../components/FormComponents/FormComponent';
 import FormItem from '../components/FormComponents/FormItem';
@@ -17,8 +22,14 @@ const validationSchema = Yup.object().shape({
 })
 
 function register() {
+    const classes = useStyles();
     const router = useRouter();
 
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('Error!');
+    const [success, setSuccess] = useState(false);
+
+    //CREATES USER IN FIRESTORE
     async function onSubmit(values){
         try {
             await firebaseInstance.auth().createUserWithEmailAndPassword(values.email, values.password)
@@ -26,37 +37,54 @@ function register() {
                 createUserInFirestore(user.uid)
                 router.push('/login')
             })
-            console.log('signed in!')
+            setError(false)
+            setSuccess(true)
         } catch(error) {
-            console.log('error')
+            setErrorMessage(error.message)
+            setError(true)
         }
     }
 
     return (
         <>
-            <PageContainer>
-                <FormComponent
-                schema={validationSchema}
-                initialValues={{
-                    email: '',
-                    password: '',
-                }}
-                onSubmit={(values) => onSubmit(values)}
-                formTitle={"Register new user"}
-                buttonText={"Submit"}
+            <PageContainer title={"Register a new user"}>
+                <Grid 
+                container
+                direction='column'
+                justify='center'
+                alignItems='center'
+                alignContent='center'
                 >
-                    <FormItem
-                    fieldName={"email"}
-                    placeholer={"Email adress"}
-                    labelText={"Email adress"}
-                    />
-                    <FormItem
-                    fieldName={"password"}
-                    placeholer={"password"}
-                    labelText={"Choose a password (min. 8 characters)"}
-                    fieldType={'password'}
-                    />
-                </FormComponent>
+                    <Grid item xs={12} className={classes.grid}>
+                        <FormComponent
+                        schema={validationSchema}
+                        initialValues={{
+                            email: '',
+                            password: '',
+                        }}
+                        onSubmit={(values) => onSubmit(values)}
+                        formTitle={'Register new user'}
+                        component={'h1'}
+                        buttonText={'Submit'}
+                        linkText={'Already registered? Log in here.'}
+                        href={'/login'}
+                        >
+                            <FormItem
+                            fieldName={"email"}
+                            placeholder={"Email adress"}
+                            labelText={"Enter email adress"}
+                            />
+                            <FormItem
+                            fieldName={"password"}
+                            placeholder={"Password"}
+                            labelText={"Choose a password (min. 8 characters)"}
+                            fieldType={'password'}
+                            />
+                            {success && <Alert severity="success">New user registered!</Alert>}
+                            {error && <Alert severity="error">{errorMessage}</Alert>}
+                        </FormComponent>
+                    </Grid> 
+                </Grid>
             </PageContainer>
         </>
     );

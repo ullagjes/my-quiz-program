@@ -1,8 +1,9 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/styles'; // works with @material-ui/core/styles, if you prefer to use it.
-import theme from '../utils/theme'; // Adjust here as well
+import { ServerStyleSheets } from '@material-ui/styles';
+import theme from '../utils/theme';
 
+//ENABLES MATERIAL UI STYILING IN NEXT JS
 export default class MyDocument extends Document {
   render() {
     return (

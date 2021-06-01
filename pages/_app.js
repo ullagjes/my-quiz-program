@@ -1,5 +1,4 @@
 import '../styles/globals.css'
-
 import React, { useEffect } from 'react';
 //MATERIAL UI
 import { ThemeProvider } from '@material-ui/styles';
@@ -27,7 +26,6 @@ function MyApp({ Component, pageProps }) {
         </QuizMaster>
       </AuthProvider>
     </ThemeProvider>
-      
     )
 }
 

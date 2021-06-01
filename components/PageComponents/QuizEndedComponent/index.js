@@ -2,32 +2,17 @@ import React from 'react';
 
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 
-import ShowScoresComponent from './ShowScoresComponent';
-import { ButtonComponent, SubTitle } from '../BaseComponents';
+import { useStyles } from './styles';
+import { SubTitle } from '../../BaseComponents';
+import ScoreBoard from '../ScoreBoard';
 
-const useStyles = makeStyles((theme) => ({
-    title: {
-        marginLeft: theme.spacing(4),
-        color: theme.palette.primary.contrastText,
-    },
-    button: {
-        marginTop: theme.spacing(2),
-        marginLeft: theme.spacing(4),
-        alignSelf: 'flex-start'
-    },
-    gridContainer: {
-        maxWidth: '720px',
-        width: '80%'
-    }
-}))
 
 function QuizEndedComponent({ 
     title, 
     subTitle,
     participants, 
-    onClick 
+    participantId
 }) {
 
     const classes = useStyles();
@@ -47,13 +32,12 @@ function QuizEndedComponent({
                 xs={12}>
                     <SubTitle component={"h1"}>{title}</SubTitle>
                 </Grid>
-                <Grid item xs>
-                <ShowScoresComponent 
-                title={subTitle}
-                participants={participants} 
-                bPxs={12}
+                <ScoreBoard 
+                    title={subTitle}
+                    participants={participants}
+                    bpMd={12}
+                    participantId={participantId}
                 />
-                </Grid>
             </Grid>
         </Container>
     );

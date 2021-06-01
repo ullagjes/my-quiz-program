@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 //NEXT
 import { useRouter } from 'next/router';
 //MATERIAL UI
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
+import { 
+    Button, 
+    Grid, 
+    Paper, 
+    Typography, 
+    useMediaQuery
+} from '@material-ui/core';
 //CONTEXT
 import { useAuth } from '../../../context/authContext';
 //UTILS
@@ -16,31 +20,16 @@ import {
     countCollection,
     getQuizTitle 
 } from '../../../utils/firebaseHelpers';
+//STYLE
+import { useStyles } from './styles';
 //COMPONENTS
 import { 
     SubTitle,
     ButtonComponent, 
-    UnderTitle 
 } from '../../../components/BaseComponents';
 import ListItem from '../../../components/PageComponents/ListItem';
 import QuestionForm from '../../../components/FormComponents/QuestionForm';
 import PageContainer from '../../../components/PageComponents/PageContainer';
-
-const useStyles = makeStyles((theme) => ({
-
-    container: {
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    titleContainer: {
-        marginBottom: theme.spacing(3),
-        borderBottom: theme.borders.medium,
-    },
-    whiteText: {
-        color: 'white'
-    },
-}))
 
 function createQuestions () {
 
@@ -50,10 +39,13 @@ function createQuestions () {
     const { id } = router.query
 
     const classes = useStyles();
+    const smallScreen = useMediaQuery('(max-width:600px)')
+    const [toggle, setToggle] = useState(false)
 
     const [selectedQuizData, setSelectedQuizData] = useState(null)
     const [selectedQuizTitle, setSelectedQuizTitle] = useState([])
     const [counter, setCounter] = useState(null)
+    const [success, setSuccess] = useState(false)
 
     useEffect(() => {
         if(user){
@@ -88,7 +80,6 @@ function createQuestions () {
             })
             setSelectedQuizData(array)
         })
-
     }
     
     async function getCounter(user, quizPin){
@@ -100,6 +91,8 @@ function createQuestions () {
     async function addQuestionToFiresTore(values){        
         try {
             await addQuestionToDocument(user.uid, id, counter, values)
+            setSuccess(true)
+            setToggle(!toggle)
             getCounter(user.uid, id)
         } catch(error) {
             console.log('error when adding question to firestore', error)
@@ -116,6 +109,27 @@ function createQuestions () {
         }
     }
 
+    //FORM COMPONENT CUSTOMIZED
+    function QuestionFormComponent(){
+        return(
+            <QuestionForm 
+            quizPin={id} 
+            counter={counter} 
+            onSubmit={addQuestionToFiresTore} 
+            initialValues={{
+                title: '',
+                option_one: '',
+                option_two: '',
+                option_three: '',
+                option_four: '',
+                correctAnswers: [],
+            }}
+            success={success}
+            feedBack={"Question added"}
+            />
+        )
+    }
+
     //===========================================AUTHENTICATION
         
     if(loading){
@@ -130,76 +144,106 @@ function createQuestions () {
     };
   
     return (
-        <PageContainer user={user}>
+        <PageContainer title={"Your quiz"} user={user}>
             <Grid 
-            container
-            direction="row"
-            justify="center"
-            spacing={5}
-            className={classes.container}
-            >
+            container 
+            spacing={4}
+            direction="column" 
+            className={classes.mainGrid}>
                 <Grid 
-                container 
+                xs={12} 
                 item 
+                container
                 justify="space-between"
-                alignItems="baseline"
-                className={classes.titleContainer}
-                xs={12}>
-                   <Grid 
-                   item xs={12} 
-                   sm={6}>
-                    <SubTitle 
-                    component={"h1"} 
-                    className={classes.whiteText}
-                    >
-                    {selectedQuizTitle}
-                    </SubTitle>
+                alignItems="flex-end"
+                className={classes.titleGrid}>
+                    <Grid item>
+                        <SubTitle className={classes.title} component={"h1"}>
+                            {selectedQuizTitle}
+                        </SubTitle>
                     </Grid>
-                    <Grid 
-                    item xs={12} 
-                    sm={2}
-                    >
-                        <ButtonComponent 
-                        size={"large"} 
+                    <Grid item>
+                        <ButtonComponent
+                        size={'large'}
                         onClick={startQuiz}
                         >
-                        Run quiz!
-                        </ButtonComponent>   
-                    </Grid> 
+                            Run quiz!
+                        </ButtonComponent>
+                    </Grid>
                 </Grid>
                 <Grid 
-                item sm={6} 
-                xs={12}
+                item 
+                container 
+                justify="space-between"
                 >
-                    <QuestionForm 
-                    quizPin={id} 
-                    counter={counter} 
-                    onSubmit={addQuestionToFiresTore} 
-                    initialValues={{
-                    title: '',
-                    option_one: '',
-                    option_two: '',
-                    option_three: '',
-                    option_four: '',
-                    correctAnswers: [],
-                    }}
-                    /> 
-                </Grid>
-                <Grid item sm={4} xs={12}>
-                    <UnderTitle className={classes.whiteText} component={"h2"}>Your questions</UnderTitle>
-                        {selectedQuizData && selectedQuizData.map((i, index) => {
-                            return (
-                                <ListItem 
-                                key={index}
-                                title={i.title}
-                                ariaLabelEdit={'Click to edit question'}
-                                handleEdit={() => router.push(`/createquiz/${id}/${i.id}`)}
-                                /> 
-                                )
-                            })
+                    <Grid 
+                    item
+                    container
+                    direction="column"
+                    spacing={3}
+                    xs={12}
+                    md={8}>
+                        {!smallScreen && 
+                        <>
+                            <Grid item>
+                                <Typography className={classes.title} variant={'h4'} component={'h2'}>Add a question to your quiz</Typography>
+                            </Grid>
+                            <Grid item>
+                                <QuestionFormComponent />
+                            </Grid>
+                        </>
                         }
+                        {smallScreen && 
+                        <>
+                            <Button 
+                            size={"large"} 
+                            className={classes.button}
+                            onClick={() => setToggle(!toggle)}>
+                                {toggle ? 'Close question form' : 'Add a question to your quiz'}
+                            </Button>
+                            {toggle && <QuestionFormComponent/>}
+                        </>
+                        }
+                    </Grid>
+                    <Grid 
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    spacing={3}
+                    item 
+                    xs={12} 
+                    md={4}
+                    >
+                        <Grid item>
+                        <Typography className={classes.title} variant={'h4'} component={'h2'}>Your questions</Typography>
+                        </Grid>
+                        <Paper className={classes.questionContainer}>
+                            {selectedQuizData && selectedQuizData.length !== 0 ? 
+                            <>
+                                {selectedQuizData && selectedQuizData.map((i, index) => {
+                                    return (
+                                        <Grid item key={index}>
+                                            <ListItem 
+                                            component={"h3"}
+                                            
+                                            title={i.title}
+                                            ariaLabelEdit={'Click to edit question'}
+                                            handleEdit={() => router.push(`/createquiz/${id}/${i.id}`)}
+                                            /> 
+                                        </Grid>
+                                        )
+                                    })
+                                }
+                            </>
+                            : 
+                            <ListItem 
+                            component={"h3"}
+                            title={"You haven't added any questions yet!"}/>
+                            }
+                        </Paper>
+                    </Grid>
                 </Grid>
-            </Grid>    
+            </Grid>
         </PageContainer>
     );
 }

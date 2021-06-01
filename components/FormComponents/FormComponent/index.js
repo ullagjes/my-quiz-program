@@ -4,53 +4,20 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-import { makeStyles } from '@material-ui/core/styles';
-
-import { UnderTitle} from '../BaseComponents';
-
-const useStyles = makeStyles((theme) => ({
-    grid: {
-        padding: theme.spacing(1),
-    },
-    formContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'stretch',
-        alignContent: 'flex-start',
-    },
-    paper: {
-        backgroundColor: theme.palette.transparent.main,
-        width: '90vw',
-        maxWidth: '600px',
-        height: 'auto',
-        padding: theme.spacing(1),
-        border: theme.borders.medium,
-    },
-    root: {
-        flexGrow: 1,
-    },
-    submit: {
-        width: '100%',
-        padding: theme.spacing(2),
-        marginTop: theme.spacing(3),
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.secondary.contrastText,
-    },
-    title: {
-        alignSelf: 'center',
-        color: theme.palette.secondary.contrastText,
-    }
-}))
-
+import { useStyles } from './styles';
+import { LinkComponent } from '../../BaseComponents';
+import { Typography } from '@material-ui/core';
 
 function FormComponent({ 
     children, 
+    component,
     schema, 
     initialValues, 
     onSubmit, 
     buttonText, 
-    formTitle 
+    formTitle,
+    linkText,
+    href 
 }) {
     const classes = useStyles();
 
@@ -58,13 +25,12 @@ function FormComponent({
         <>
         <Grid 
         container 
+        item
         direction="column"
-        justify="center"
-        alignContent="center"
         className={classes.root}>
-            <Grid item xs={12}>
-                <UnderTitle component={"h2"} className={classes.title}>{formTitle}</UnderTitle>
-            </Grid>
+            {formTitle && <Grid item xs={12}>
+                <Typography variant={'h3'} component={component ? component : 'h2'} className={classes.title}>{formTitle}</Typography>
+            </Grid>}
             <Formik
             initialValues={initialValues}
             validationSchema={schema}
@@ -85,6 +51,9 @@ function FormComponent({
                         > 
                         {children}
                         </Grid>
+                        {linkText && <LinkComponent href={href}>
+                            <p className={classes.link}>{linkText}</p>
+                        </LinkComponent>}
                         <Button type="submit" className={classes.submit}>{buttonText}</Button>
                     </Paper>       
                 </Form>

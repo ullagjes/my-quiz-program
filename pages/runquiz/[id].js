@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 //CONTEXT
 import { useAuth } from '../../context/authContext';
 //UTILS
-import { resetQuiz } from '../../utils/firebaseHelpers';
+import { countAnswers, resetQuiz } from '../../utils/firebaseHelpers';
 import firebaseInstance from '../../utils/firebase';
 
 //COMPONENTS
@@ -16,9 +16,10 @@ import ShowPodium from '../../components/PageComponents/ShowPodium';
 
 function hostRunningQuiz() {
 
+    //ID = QUIZPIN USED AS A FIRESTORE DOCUMENT ID
     const router = useRouter();
-
     const { id } = router.query;
+    //AUTHENTICATION CONTEXT
     const { user, loading, isAuthenticated } = useAuth();
 
     //COUNTER USED IN REAL TIME DATA UPDATES
@@ -33,6 +34,7 @@ function hostRunningQuiz() {
 
     //PARTICIPANT DATA
     const [participants, setParticipants] = useState([])
+    const [answers, setAnswers] = useState([])
     
     //FOR ALL QUESTIONS AND REALTIME DATA
     const [allQs, setAllQs] = useState([])
@@ -68,8 +70,11 @@ function hostRunningQuiz() {
             return updateCountInFirestore(allQs[currentQ])
         }
         return;
-        
     }, [allQs, currentQ])
+
+    useEffect(() => {
+        getAnswerCount()
+    }, [realTimeQ])
 
     //UPDATES STATE FOR PENDING AND WAITING ROOM IF USER REFRESHES PAGE
     useEffect(() => {
@@ -220,10 +225,30 @@ function hostRunningQuiz() {
             setParticipants(filterByHighest)
         })
     }
+    
+    //COUNTS HOW MANY PARTICIPANTS HAVE ANSWERED
+    async function getAnswerCount(){
+        if(realTimeQ.length !== 0) {
+            const questionDocument = runningQuizDocument
+            .collection('questions')
+            .doc(realTimeQ[0].id)
+            .collection('answers')
+
+            questionDocument.onSnapshot((snapshot) => {
+                let array = []
+                snapshot.forEach(i => {
+                    array.push({
+                        id: i.id,
+                        ...i.data()
+                    })
+                })
+                setAnswers(array)
+            })
+        }
+    }
 
     //UPDATE FIRESTORE DATA TO SHOW WHICH Q IS SELECTED
     async function upDateCurrentQInFirestore(questionId){
-
         const filter = allQs.filter(i => {
             return (i.id !== questionId)
         })
@@ -277,7 +302,6 @@ function hostRunningQuiz() {
     }
 
     //AUTHENTICATION
-    
     if(loading){
         return(
         <>Loading...</>
@@ -290,7 +314,7 @@ function hostRunningQuiz() {
     };
   
     return(
-        <PageContainer user={user}>
+        <PageContainer title={"Quiz mainpage"} user={user}>
             {(!quizRunning && quizEnded) ? 
             <NoQuizRunningComponent /> 
             : 
@@ -315,6 +339,8 @@ function hostRunningQuiz() {
                             optionTwo={i.options.option_two}
                             optionThree={i.options.option_three}
                             optionFour={i.options.option_four}
+                            participants={participants}
+                            answers={answers}
                             onClick={setQuizToPending}
                             />
                             )
@@ -327,7 +353,7 @@ function hostRunningQuiz() {
                     <ShowScoresComponent 
                         participants={participants} 
                         question={realTimeQ}
-                        isPending={true}
+                        isPending={quizPending}
                         bPxs={12}
                         bPsm={3}
                         onClick={nextQ}

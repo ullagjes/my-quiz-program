@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
     },
     mainButton: {
         border: theme.borders.thin,
+        fontWeight: 600,
+        minWidth: '200px',
     }
 }))
 
@@ -43,7 +45,6 @@ export function UnderTitle({children, component, className}){
         <Typography
             component={component} 
             variant="h4"
-            className={`${classes.text} + ${className}`}
         >
             {children}
         </Typography>

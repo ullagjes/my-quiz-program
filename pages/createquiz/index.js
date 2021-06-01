@@ -1,27 +1,28 @@
-import React, { useEffect, useState  } from 'react';
+import React, { 
+    useEffect, 
+    useState
+} from 'react';
 //NEXT
 import { useRouter } from 'next/router';
 //MATERIAL UI
-import { ButtonComponent } from '../../components/BaseComponents';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { 
+    Button,
+    Fade, 
+    Grid, 
+    Paper, 
+    Typography
+ } from '@material-ui/core';
 //UTILS
 import { useAuth } from '../../context/authContext';
 import firebaseInstance from '../../utils/firebase';
+//STYLES
+import { useStyles } from './styles';
 //COMPONENTS
 import QuizForm from '../../components/FormComponents/QuizForm';
 import PageContainer from '../../components/PageComponents/PageContainer';
-
-const useStyles = makeStyles((theme) => ({
-    buttonVisible: {
-        display: 'block',
-        width: 300,
-        height: 100,
-    },
-    buttonNonVisible: {
-        display: 'none'
-    }
-}))
+import { 
+    ButtonComponent, 
+    SubTitle } from '../../components/BaseComponents';
 
 function CreateNewQuiz() {
     const classes = useStyles()
@@ -69,29 +70,84 @@ function CreateNewQuiz() {
     };
   
     return (
-        <PageContainer user={user}>
+        <PageContainer title={"Create quiz"} user={user}>
             <Grid 
             container
-            justify="center"
+            justify="space-between"
+            alignItems="center"
             alignContent="center"
             direction="column"
+            spacing={2}
+            className={classes.grid}
             >
-                <Grid item>
-                    <ButtonComponent 
-                    className={toggle ? `${classes.buttonNonVisible}` : `${classes.buttonVisible}`} 
-                    onClick={handleToggle} size={"large"}
-                    > 
-                    Create new quiz 
-                    </ButtonComponent>
+                <Grid
+                item 
+                xs={10} 
+                container 
+                alignItems="baseline" 
+                justify="center"
+                className={classes.titleGrid}
+                >
+                    <Grid 
+                    item 
+                    xs={12}
+                    >
+                        <SubTitle component={"h1"} className={classes.title}>Create new quiz</SubTitle>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    {toggle ? 
-                        <QuizForm 
+                <Grid 
+                item 
+                xs={10} 
+                spacing={2} 
+                container 
+                justify="space-between">
+                    <Grid 
+                    item 
+                    xs={12} 
+                    md={8}>
+                        <Paper className={toggle ? classes.nonVisible : classes.paper}>
+                            <Typography variant={"h4"} component={"p"}>
+                                Here you can choose if you want to create your own customizable quiz, or if you're feeling less creative, you can try a premade quiz.
+                            </Typography>
+                        </Paper>
+                        <Fade in={toggle}>
+                        <Grid item xs={12}>
+                            {toggle ? 
+                            <QuizForm 
                             quizPin={JSON.stringify(newQuizPin)} 
                             userId={userId} 
-                            /> 
-                        : null
-                    }
+                            />
+                            : null
+                            }
+                        </Grid>
+                    </Fade>
+                    </Grid>
+                    <Grid 
+                    item 
+                    md={4} 
+                    xs={12} 
+                    container
+                    direction="row"
+                    spacing={2}
+                    justify="space-between"
+                    >
+                        <Grid item xs={12}>
+                            <Button
+                            className={`${classes.buttonVisible}`} 
+                            onClick={handleToggle} size={"large"}
+                            >
+                            {toggle ? 'Close form' : 'Create new quiz'} 
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                            className={`${classes.buttonVisible}`} 
+                            onClick={() => router.push('/createquiz/premade')} size={"large"}
+                            >
+                            Use a premade movie quiz
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid> 
         </PageContainer>
@@ -99,220 +155,3 @@ function CreateNewQuiz() {
 }
 
 export default CreateNewQuiz;
-
-
-
-
-/*
-
-
-
-    /*useEffect(() => {
-        if(isAuthenticated) {
-            getQuizData(userId)}
-    }, [isAuthenticated])
-
-    async function getQuizData(userId){
-        const userData = await checkForUserData(userId)
-        setUserData(userData)
-    }
-
-
-sjekk .some() og .every()
-
-
-const myFilms = [{  title: 'Star Wars'}, year: 1989, tags: ["Action" ]}]
-
-const filtered= myFilms.filter(film => {
-    return film.tags.some(tag => tag === 'action')
-})
-
-const filtered = myFilms.filter(film => filter(film, 'Action'))
-
-function filter(film, tagName){
-    return film.tags.some(tag => tag === tagName)
-}
-
-//Finner den første filmen i et array med året 1999
-const result = myFilms.find(film => film.year === 1999)
-
-const resultHasTag = filter(result, 'Sci-Fi')
-
-const films = [
-    {
-        title: 'Star wars',
-        year: 1999,
-        actorCount: 300
-    },
-    {
-        title: 'Star trek',
-        year: 1995,
-        actorCount: 100
-    },
-    {
-        title: 'Jurassic Park',
-        year: 1993,
-        actorCount: 50
-    }
-]
-
-function countNumberOfActors(acc, film) {
-    return acc + film.actorCount
-}
-
-const totalActors = myFilms.reduce((countNumberOfActors, 0)
-
-
-
-const [userData, setUserData] = useState(null)
- 
- const collection = firebaseInstance
-        .firestore()
-        .collection('users')
-
-        await collection.doc(JSON.stringify(newQuizPin)).set({name: 'ulla'});
-<div key={index}>
-                    <QuestionForm 
-                        initialValues={{
-                            title: i.title,
-                            option_one: i.option_one,
-                            option_two: i.option_two,
-                            option_three: i.option_three,
-                            option_four: i.option_four,
-                        }} 
-                    />
-                    </div>
-        {array.map((i, index) => {
-            return(
-                <div key={index}>
-                <Formik
-                
-                onSubmit={(values) => onSubmit(values)}
-                >
-                    <Form>
-                        <label htmlFor='title'>Question{index}</label>
-                            <Field name="title" type="text" placeholder="Type your question here"/>
-                            <ErrorMessage name="title" />
-                            <br></br>
-                            <br></br>
-                            <label htmlFor='option_one'>Option 1:</label>
-                            <Field name="option_one" type="text" placeholder="Option 1(required)"
-                            />
-                            <ErrorMessage name="option_one" />
-                            <br></br>
-                            <br></br>
-                            <label htmlFor='option_two'>Option 2:</label>
-                            <Field name="option_two" type="text" placeholder="Option 2(required)"
-                            />
-                            <ErrorMessage name="option_two" />
-                            <br></br>
-                            <br></br>
-                            <label htmlFor='option_three'>Option 3:</label>
-                            <Field name="option_three" type="text" placeholder="Option 3(optional)"
-                            />
-                            <br></br>
-                            <br></br>
-                            <label htmlFor='option_four'>Option 4:</label>
-                            <Field name="option_four" type="text" placeholder="Option 4(optional)"
-                            />
-                            <br></br>
-                        <button type="submit">Done</button>
-                        
-                    </Form>
-                </Formik>
-                
-                </div>
-            )
-        })}
-        <button onClick={addNewQuestion}>Add another question</button>
-        {questions.map((i, index) => {
-            return(
-                <div>
-                    {toggle ? <div key={index}>
-                        <p>{i.title}</p>
-                        <p>{i.option_one}</p>
-                        <p>{i.option_two}</p>
-                        {i.option_three && <p>{i.option_three}</p>}
-                        {i.option_four && <p>{i.option_four}</p>}
-                    </div> 
-                    : 
-                    <Formik
-                        initialValues={{
-                            title: i.title,
-                            option_one: i.option_one,
-                            option_two: i.option_two,
-                            option_three: i.option_three,
-                            option_four: i.option_four,
-                        }}
-                        validationSchema={schema}
-                        onSubmit={(values) => console.log(values)}
-                    >
-                        <Form>
-                        <label htmlFor='title'>Question{index}</label>
-                            <Field name="title" type="text" />
-                            <ErrorMessage name="title" />
-                            <br></br>
-                            <br></br>
-                            <label htmlFor='option_one'>Option 1:</label>
-                            <Field name="option_one" type="text" 
-                            />
-                            <ErrorMessage name="option_one" />
-                            <br></br>
-                            <br></br>
-                            <label htmlFor='option_two'>Option 2:</label>
-                            <Field name="option_two" type="text" 
-                            />
-                            <ErrorMessage name="option_two" />
-                            <br></br>
-                            <br></br>
-                            <label htmlFor='option_three'>Option 3:</label>
-                            <Field name="option_three" type="text" 
-                            />
-                            <br></br>
-                            <br></br>
-                            <label htmlFor='option_four'>Option 4:</label>
-                            <Field name="option_four" type="text" 
-                            />
-                            <br></br>
-                        <button type="submit">Done</button>
-                        
-                    </Form>
-
-                    </Formik>
-                    }
-                    <button onClick={() => {
-                        setToggle(!toggle)
-                    }}>Edit</button>
-                    <button>Delete</button>
-                </div>
-
-            )
-        })}
-
-
-<FieldArray>
-                {() => () => {
-                    return (
-                        <>
-                        <label htmlFor='option_one'>Option 1:</label>
-                        <Field name="option_one" type="text" placeholder="Option 1(required)"
-                        />
-                        <ErrorMessage name="option_one" />
-                        <br></br>
-                        <label htmlFor='option_two'>Option 2:</label>
-                        <Field name="option_two" type="text" placeholder="Option 2(required)"
-                        />
-                        <ErrorMessage name="option_two" />
-                        <br></br>
-                        <label htmlFor='option_three'>Option 3:</label>
-                        <Field name="option_three" type="text" placeholder="Option 3(optional)"
-                        />
-                        <br></br>
-                        <label htmlFor='option_four'>Option 4:</label>
-                        <Field name="option_four" type="text" placeholder="Option 4(optional)"
-                        />
-                        <br></br>
-                        </>
-                    )
-                }}    
-                </FieldArray> */

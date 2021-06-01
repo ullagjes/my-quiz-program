@@ -8,7 +8,7 @@ import { useAuth } from '../../context/authContext';
 function LandingPage() {
     const { user } = useAuth()
     return (
-        <PageContainer user={user}>
+        <PageContainer title={"Landing page"} user={user}>
             <SubTitle>No quiz running here!</SubTitle>
         </PageContainer>
     );

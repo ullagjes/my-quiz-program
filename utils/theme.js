@@ -1,7 +1,7 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { purple, red, green, yellow, blue } from '@material-ui/core/colors'
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
 
 
     spacing: [0, 4, 8, 16, 32, 64, 130, 260, 520, 1040, 2080],
@@ -21,7 +21,7 @@ const theme = createMuiTheme({
             four: blue[500],
         },
         secondary: {
-            main: "#4ca1a3",
+            main: "#3b7e80",
         },
         warning: {
             main: red[600],
@@ -34,9 +34,9 @@ const theme = createMuiTheme({
         },
         
     },
-
-    
 })
+
+theme = responsiveFontSizes(theme)
 
 export default theme;
 

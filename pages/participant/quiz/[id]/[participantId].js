@@ -13,7 +13,7 @@ import {
 import ShowParticipantOptions from '../../../../components/PageComponents/ShowParticipantOptions';
 import PageContainer from '../../../../components/PageComponents/PageContainer';
 import WaitingroomComponent from '../../../../components/PageComponents/WaitingroomComponent';
-import LockedScreenComponent from '../../../../components/PageComponents/LockedScreenComponent';
+import LockedScreenComponent from '../../../../components/PageComponents/LockedScreen';
 import ShowParticipantFeedback from '../../../../components/PageComponents/ShowParticipantFeedback';
 import QuizEndedComponent from '../../../../components/PageComponents/QuizEndedComponent';
 import { ButtonComponent } from '../../../../components/BaseComponents';
@@ -36,7 +36,7 @@ function ParticipantQuizView() {
 
     //PARTICIPANT DATA
     const [userPoints, setUserPoints] = useState(0)
-    const [userFeedBack, setUserFeedBack] = useState('')
+    const [userFeedBack, setUserFeedBack] = useState('Please wait for the next question')
     const [participants, setParticipants] = useState([])
 
     //FIRESTORE REFS
@@ -170,7 +170,6 @@ function ParticipantQuizView() {
             await checkIfAnswerCorrect(value, check)
             setScreenLocked(true) 
         }
-        
     }
 
     //COMPARES PARTICIPANT ANSWER WITH CORRECT ANSWER
@@ -190,7 +189,7 @@ function ParticipantQuizView() {
     }
 
     return (
-        <PageContainer>
+        <PageContainer title={"Quiz"}>
             {!quizRunning ? <ButtonComponent onClick={() => router.push('/')}>Return to home page</ButtonComponent> 
             : 
             <>
@@ -201,7 +200,7 @@ function ParticipantQuizView() {
                     showProgress={true}
                     /> 
                 : ''}
-                {!quizPending ? 
+                {(!quizPending && !waitingRoomActive) ? 
                 <ShowParticipantOptions 
                 question={currentQ}
                 onClick={submitAnswer}
@@ -220,7 +219,9 @@ function ParticipantQuizView() {
                 <QuizEndedComponent
                 title={'Quiz over!'}
                 subTitle={'Final scores'}
-                participants={participants}  /> 
+                participants={participants}
+                participantId={participantId}
+                /> 
                 : ''}
             </>
             }

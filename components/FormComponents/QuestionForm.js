@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
+import Alert from '@material-ui/lab/Alert';
 
 import FormComponent from './FormComponent';
 import FormItem from './FormItem';
@@ -15,7 +16,9 @@ const schema = Yup.object().shape({
 
 function QuestionForm({ 
     initialValues, 
-    onSubmit 
+    onSubmit,
+    feedBack,
+    success 
 }) {
     
     return (
@@ -24,12 +27,12 @@ function QuestionForm({
         initialValues={initialValues}
         onSubmit={onSubmit}
         buttonText={"Done"}
-        formTitle={"Add a question to your quiz"}
         >
             <FormItem
+            largeTitle
             fieldName={"title"}
             placeholder={"Type your question here"}
-            labelText={"Question text"}
+            labelText={"Question:"}
             />
             <FormItem
             fieldName={"option_one"}
@@ -63,6 +66,7 @@ function QuestionForm({
             cbName={"correctAnswers"}
             cbText={"Option four is correct."}
             />
+            {success && <Alert severity="success">{feedBack}</Alert>}
         </FormComponent>
     );
 }

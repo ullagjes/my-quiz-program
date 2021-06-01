@@ -27,12 +27,12 @@ yarn dev
 //Create a web project in Firestore
 //Add the projects API-keys (see project settings in firestore for your project's api-keys) as an .env.local file using this format:
 
-NEXT_PUBLIC_FIREBASE_API_KEY=<--apiKey-->
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=<--authDomain->
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=<--projectId-->
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=<--storageBucket-->
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=<--messagingSenderId-->
-NEXT_PUBLIC_FIREBASE_APP_ID=<--appId-->
+- NEXT_PUBLIC_FIREBASE_API_KEY=<--apiKey-->
+- NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=<--authDomain->
+- NEXT_PUBLIC_FIREBASE_PROJECT_ID=<--projectId-->
+- NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=<--storageBucket-->
+- NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=<--messagingSenderId-->
+- NEXT_PUBLIC_FIREBASE_APP_ID=<--appId-->
 
 //Enable authentication with email and password
 //Add three collections to your Firestore database:

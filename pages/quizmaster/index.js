@@ -12,6 +12,7 @@ import {
     UnderTitle 
 } from '../../components/BaseComponents';
 import PageContainer from '../../components/PageComponents/PageContainer';
+import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 
 function quizMaster() {
     const classes = useStyles();
@@ -19,9 +20,7 @@ function quizMaster() {
 
     //AUTHENTICATION
     if(loading){
-        return(
-        <>Loading...</>
-        );
+        return <LoadingComponent />
     };
 
     if(isAuthenticated === false) {

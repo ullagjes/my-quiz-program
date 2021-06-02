@@ -22,6 +22,7 @@ import { useStyles } from './styles';
 import QuestionForm from '../../../components/FormComponents/QuestionForm';
 import PageContainer from '../../../components/PageComponents/PageContainer';
 import { ErrorMessage } from '../../../components/BaseComponents';
+import LoadingComponent from '../../../components/PageComponents/LoadingComponent';
 
 //ALLOWS USER TO EDIT A SINGLE QUESTION
 
@@ -57,9 +58,7 @@ function editQuestion() {
 
     //AUTHENTICATION
     if(loading){
-        return(
-        <>Loading...</>
-        );
+        return <LoadingComponent />
     };
     
     if(isAuthenticated === false) {

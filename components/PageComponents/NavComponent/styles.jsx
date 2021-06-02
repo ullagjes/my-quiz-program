@@ -46,7 +46,7 @@ export const useStyles = makeStyles((theme) => ({
         width: '90%',
     },
     mobileNavigation: {
-        width: '85%',
+        width: '90%',
         height: '70%',
         backgroundColor: theme.palette.primary.main,
         border: theme.borders.medium,

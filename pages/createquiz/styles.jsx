@@ -16,6 +16,9 @@ export const useStyles = makeStyles((theme) => ({
     },
     grid: {
         marginTop: theme.spacing(6),
+        maxWidth: '1000px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     titleGrid: {
         color: 'white',

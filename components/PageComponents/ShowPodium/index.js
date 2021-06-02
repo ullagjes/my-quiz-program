@@ -13,6 +13,7 @@ import {
     ButtonComponent,
     SubTitle
 } from '../../BaseComponents';
+import LoadingComponent from '../../PageComponents/LoadingComponent';
 
 function ShowPodium({ participants, onClick }) {
     const classes = useStyles();
@@ -20,7 +21,7 @@ function ShowPodium({ participants, onClick }) {
     return (
         <>
             {participants.length === 0 ? 
-            <p>loading</p> 
+            <LoadingComponent />
             : 
             <>
             {participants && 

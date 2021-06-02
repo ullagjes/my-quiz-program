@@ -12,6 +12,7 @@ import { useStyles } from './styles';
 import { ErrorMessage, SubTitle } from '../../components/BaseComponents';
 import ListItem from '../../components/PageComponents/ListItem';
 import PageContainer from '../../components/PageComponents/PageContainer/';
+import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 
 
 function library() {
@@ -25,9 +26,7 @@ function library() {
     //AUTHENTICATION
     
     if(loading){
-        return(
-        <>Loading...</>
-        );
+        return <LoadingComponent />;
     };
 
     if(isAuthenticated === false) {

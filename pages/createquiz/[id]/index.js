@@ -31,6 +31,8 @@ import {
 import ListItem from '../../../components/PageComponents/ListItem';
 import QuestionForm from '../../../components/FormComponents/QuestionForm';
 import PageContainer from '../../../components/PageComponents/PageContainer';
+import PageTitle from '../../../components/PageComponents/PageTitle';
+import LoadingComponent from '../../../components/PageComponents/LoadingComponent';
 
 function createQuestions () {
 
@@ -134,9 +136,7 @@ function createQuestions () {
     //AUTHENTICATION
         
     if(loading){
-        return(
-        <>Loading...</>
-        );
+        return <LoadingComponent />
     };
 
     if(isAuthenticated === false) {
@@ -148,30 +148,13 @@ function createQuestions () {
         <PageContainer title={"Your quiz"} user={user}>
             <Grid 
             container 
-            spacing={4}
             direction="column" 
             className={classes.mainGrid}>
-                <Grid 
-                xs={12} 
-                item 
-                container
-                justify="space-between"
-                alignItems="flex-end"
-                className={classes.titleGrid}>
-                    <Grid item>
-                        <SubTitle className={classes.title} component={"h1"}>
-                            {selectedQuizTitle}
-                        </SubTitle>
-                    </Grid>
-                    <Grid item>
-                        <ButtonComponent
-                        size={'large'}
-                        onClick={startQuiz}
-                        >
-                            Run quiz!
-                        </ButtonComponent>
-                    </Grid>
-                </Grid>
+                <PageTitle
+                title={selectedQuizTitle}
+                buttonText={"Run this quiz"}
+                onClick={startQuiz}
+                />
                 <Grid 
                 item 
                 container 
@@ -181,7 +164,7 @@ function createQuestions () {
                     item
                     container
                     direction="column"
-                    spacing={3}
+                    spacing={2}
                     xs={12}
                     md={8}>
                         {!smallScreen && 

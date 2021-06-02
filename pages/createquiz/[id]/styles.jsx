@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     mainGrid: {
         width: '90%',
-        maxWidth: '1200px',
+        maxWidth: '1000px',
         marginTop: theme.spacing(4),
         marginLeft: 'auto',
         marginRight: 'auto',

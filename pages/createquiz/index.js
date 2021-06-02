@@ -24,6 +24,8 @@ import {
     ButtonComponent, 
     ErrorMessage, 
     SubTitle } from '../../components/BaseComponents';
+import PageTitle from '../../components/PageComponents/PageTitle';
+import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 
 function CreateNewQuiz() {
     const classes = useStyles()
@@ -60,9 +62,7 @@ function CreateNewQuiz() {
 
     //AUTHENTICATION
     if(loading){
-        return(
-        <>Loading...</>
-        );
+        return <LoadingComponent />
     };
 
     if(isAuthenticated === false) {
@@ -81,24 +81,12 @@ function CreateNewQuiz() {
             spacing={2}
             className={classes.grid}
             >
-                <Grid
-                item 
-                xs={10} 
-                container 
-                alignItems="baseline" 
-                justify="center"
-                className={classes.titleGrid}
-                >
-                    <Grid 
-                    item 
-                    xs={12}
-                    >
-                        <SubTitle component={"h1"} className={classes.title}>Create new quiz</SubTitle>
-                    </Grid>
-                </Grid>
+                <PageTitle
+                title={"Create new quiz"}
+                />
                 <Grid 
                 item 
-                xs={10} 
+                xs={12} 
                 spacing={2} 
                 container 
                 justify="space-between">

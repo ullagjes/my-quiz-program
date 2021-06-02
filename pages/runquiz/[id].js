@@ -14,6 +14,7 @@ import ShowScoresComponent from '../../components/PageComponents/ShowScoresCompo
 import PageContainer from '../../components/PageComponents/PageContainer';
 import ShowPodium from '../../components/PageComponents/ShowPodium';
 import { ErrorMessage } from '../../components/BaseComponents';
+import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 
 function hostRunningQuiz() {
 
@@ -304,9 +305,7 @@ function hostRunningQuiz() {
 
     //AUTHENTICATION
     if(loading){
-        return(
-        <>Loading...</>
-        );
+        return <LoadingComponent />
     };
 
     if(isAuthenticated === false) {

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 
-import { getMovieQs } from '../../../utils/apiHelpers';
+import { Grid } from '@material-ui/core';
 
+import { getMovieQs } from '../../../utils/apiHelpers';
 import firebaseInstance from '../../../utils/firebase';
 import { createQuizPin } from '../../../utils/firebaseHelpers';
 
 import { useAuth } from '../../../context/authContext';
 import { useStyles } from './styles';
 import PageContainer from '../../../components/PageComponents/PageContainer';
-import { ButtonComponent, SubTitle } from '../../../components/BaseComponents';
 import ListItem from '../../../components/PageComponents/ListItem';
-import { Button, Grid } from '@material-ui/core';
+import PageTitle from '../../../components/PageComponents/PageTitle';
+import { ErrorMessage } from '../../../components/BaseComponents'
+import LoadingComponent from '../../../components/PageComponents/LoadingComponent';
 
-function PreMade(props) {
+function PreMade() {
 
     const router = useRouter();
 
@@ -169,25 +171,25 @@ function PreMade(props) {
         }
     }
 
+    //AUTHENTICATION
+        
+    if(loading){
+        return <LoadingComponent />
+    };
+
+    if(isAuthenticated === false) {
+        router.push('/login');
+        return <ErrorMessage message={"You aren't logged in."}/>
+    };
+
     return (
         <PageContainer title={"Movie quiz"} user={user}>
             <Grid container direction="column" className={classes.gridContainer}>
-                <Grid 
-                item 
-                container 
-                direction="row" 
-                justify="space-between"
-                alignItems="baseline"
-                className={classes.grid}>
-                    <Grid item sm={8}>
-                        <SubTitle component={"h1"}>
-                            Movie quiz
-                        </SubTitle>
-                    </Grid>
-                    <Grid item sm={2}>
-                        <Button className={classes.button} onClick={addMovieQuiz}>Add this quiz to your library</Button>
-                    </Grid>
-                </Grid>
+                <PageTitle
+                title={"Movie quiz"}
+                buttonText={"Add quiz to library"}
+                onClick={addMovieQuiz}
+                />
                 <Grid 
                 container
                 justify="center"

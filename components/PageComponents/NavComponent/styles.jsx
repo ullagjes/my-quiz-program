@@ -40,4 +40,36 @@ export const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         fontSize: 25,
     },
+    navLinkMobile: {
+        fontSize: 40,
+        borderBottom: "5px solid white",
+        width: '90%',
+    },
+    mobileNavigation: {
+        width: '85%',
+        height: '70%',
+        backgroundColor: theme.palette.primary.main,
+        border: theme.borders.medium,
+        padding: theme.spacing(3),
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '40px',
+        alignItems: 'flex-start',
+        position: 'relative'
+    },
+    mobileNavigationButton: {
+        color: 'white',
+        fontSize: 25,
+    },
+    closeIconContainer: {
+        alignSelf: 'flex-end',
+        position: 'abosolute',
+        top: 0,
+    },
+    closeIcon: {
+        color: 'white',
+        height: 50,
+        width: 50,
+        
+    },
 }))

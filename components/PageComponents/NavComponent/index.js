@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Link from 'next/link';
 
-import Box from '@material-ui/core/Box';
+import { Backdrop, Box, Button, IconButton, useMediaQuery } from '@material-ui/core';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { useStyles } from './styles';
 import { LinkComponent } from '../../BaseComponents';
@@ -11,6 +12,68 @@ import { LinkComponent } from '../../BaseComponents';
 function NavComponent({ user }) {
     
     const classes = useStyles();
+    const smallScreen = useMediaQuery(`(max-width:600px)`)
+    const [toggle, setToggle] = useState(false);
+
+    function handleClick(){
+        setToggle(!toggle)
+    }
+
+    function NavigationLinks(){
+        return(
+            <>
+                <LinkComponent 
+                classes={smallScreen ? `${classes.navLink} + ${classes.navLinkMobile}` : classes.navLink} 
+                href={`/createquiz`}>
+                    CREATE
+                </LinkComponent>
+                <LinkComponent 
+                classes={smallScreen ? `${classes.navLink} + ${classes.navLinkMobile}` : classes.navLink} 
+                href={`/quizmaster/library`}>
+                    LIBRARY
+                </LinkComponent>
+                <LinkComponent 
+                classes={smallScreen ? `${classes.navLink} + ${classes.navLinkMobile}` : classes.navLink} 
+                href={`/quizmaster/profile`}>
+                    PROFILE
+                </LinkComponent>
+            </>
+            )
+    }
+
+    function MenuComponent(){
+        return(
+            <>
+            {smallScreen ? 
+            <>
+                <Button 
+                className={`${classes.mobileNavigationButton} + ${classes.navigationContainer}`}
+                aria-controls="menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+                >
+                    Menu
+                </Button> 
+                {toggle && 
+                <Backdrop open={toggle} onClick={handleClick}>
+                    <nav className={classes.mobileNavigation}>
+                        <IconButton className={classes.closeIconContainer} aria-label="close menu" onClick={handleClick}>
+                            <CloseIcon className={classes.closeIcon}/>
+                        </IconButton>
+                        <NavigationLinks />
+                    </nav>
+                </Backdrop>
+                }
+            </>
+            : 
+            <nav className={classes.navigationContainer}>
+                <NavigationLinks />
+            </nav>
+            }
+            </>
+        )
+    }
+
     return (
         <Box 
             className={classes.header} 
@@ -26,13 +89,7 @@ function NavComponent({ user }) {
                         <p className={classes.logo} aria-label="hidden">K!</p>  
                     </a>
                 </Link>
-                {user && 
-                <nav className={classes.navigationContainer}>
-                    <LinkComponent classes={classes.navLink} href={`/createquiz`}>Create</LinkComponent>
-                    <LinkComponent classes={classes.navLink} href={`/quizmaster/library`}>Library</LinkComponent>
-                    <LinkComponent classes={classes.navLink} href={`/quizmaster/profile`}>Profile</LinkComponent>
-                </nav>
-                }
+                {user && <MenuComponent />}
             </Box>
     );
 }

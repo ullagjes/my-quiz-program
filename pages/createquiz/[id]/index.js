@@ -130,7 +130,7 @@ function createQuestions () {
         )
     }
 
-    //===========================================AUTHENTICATION
+    //AUTHENTICATION
         
     if(loading){
         return(

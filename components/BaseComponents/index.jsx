@@ -1,8 +1,7 @@
 
-import { Button } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import { Button, Typography, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -15,6 +14,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
+export function ErrorMessage({ message }){
+    return(
+        <Alert severity="error">{message}</Alert>
+    )
+}
+
 export function HeadLine({children}){
     return(
         <Typography
@@ -26,7 +31,11 @@ export function HeadLine({children}){
     )
 }
 
-export function SubTitle({children, component, className}){
+export function SubTitle({
+    children, 
+    component, 
+    className
+}){
     return(
         <Typography
             component={component}
@@ -38,9 +47,8 @@ export function SubTitle({children, component, className}){
     )
 }
 
-export function UnderTitle({children, component, className}){
-    const classes = useStyles();
-
+export function UnderTitle({ children, component }){
+    
     return(
         <Typography
             component={component} 
@@ -61,7 +69,11 @@ export function TextElement({ children }){
     )
 }
 
-export function LinkComponent({ classes, children, href}){
+export function LinkComponent({ 
+    classes, 
+    children, 
+    href
+}){
     return(
         <Typography component="div">
 
@@ -75,7 +87,12 @@ export function LinkComponent({ classes, children, href}){
     )
 }
 
-export function ButtonComponent({children, onClick, size, className}){
+export function ButtonComponent({
+    children, 
+    onClick, 
+    size, 
+    className
+}){
     const classes = useStyles()
     return(
         <Button 

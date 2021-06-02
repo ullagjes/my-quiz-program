@@ -7,6 +7,7 @@ import { useAuth } from '../../context/authContext';
 import { useStyles } from './styles';
 //COMPONENTS
 import { 
+    ErrorMessage,
     SubTitle, 
     UnderTitle 
 } from '../../components/BaseComponents';
@@ -25,7 +26,7 @@ function quizMaster() {
 
     if(isAuthenticated === false) {
         router.push('/login');
-        return <>You aren't logged in.</>
+        return <ErrorMessage message={"You aren't logged in"}/>
     };
     
     return (

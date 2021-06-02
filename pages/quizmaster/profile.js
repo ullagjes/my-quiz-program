@@ -21,7 +21,8 @@ import { useStyles } from './styles';
 import { 
     TextElement, 
     ButtonComponent,
-    SubTitle 
+    SubTitle, 
+    ErrorMessage
 } from '../../components/BaseComponents';
 import PageContainer from '../../components/PageComponents/PageContainer';
 
@@ -49,7 +50,7 @@ function profile() {
     
     if(isAuthenticated === false) {
         router.push('/login');
-        return <>You aren't logged in.</>
+        return <ErrorMessage message={"You aren't logged in."}/>
     };
 
     return (

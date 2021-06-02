@@ -21,6 +21,7 @@ import { useStyles } from './styles';
 //COMPONENTS
 import QuestionForm from '../../../components/FormComponents/QuestionForm';
 import PageContainer from '../../../components/PageComponents/PageContainer';
+import { ErrorMessage } from '../../../components/BaseComponents';
 
 //ALLOWS USER TO EDIT A SINGLE QUESTION
 
@@ -63,7 +64,7 @@ function editQuestion() {
     
     if(isAuthenticated === false) {
         router.push('/login');
-        return <>You aren't logged in.</>
+        return <ErrorMessage message={"You aren't logged in"}/>
     };
 
     return (

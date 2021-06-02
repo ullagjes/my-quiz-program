@@ -25,7 +25,8 @@ import { useStyles } from './styles';
 //COMPONENTS
 import { 
     SubTitle,
-    ButtonComponent, 
+    ButtonComponent,
+    ErrorMessage, 
 } from '../../../components/BaseComponents';
 import ListItem from '../../../components/PageComponents/ListItem';
 import QuestionForm from '../../../components/FormComponents/QuestionForm';
@@ -140,7 +141,7 @@ function createQuestions () {
 
     if(isAuthenticated === false) {
         router.push('/login');
-        return <>You aren't logged in.</>
+        return <ErrorMessage message={"You aren't logged in."}/>
     };
   
     return (

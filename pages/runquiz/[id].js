@@ -13,6 +13,7 @@ import { ShowOptionsComponent } from '../../components/PageComponents/ShowOption
 import ShowScoresComponent from '../../components/PageComponents/ShowScoresComponent';
 import PageContainer from '../../components/PageComponents/PageContainer';
 import ShowPodium from '../../components/PageComponents/ShowPodium';
+import { ErrorMessage } from '../../components/BaseComponents';
 
 function hostRunningQuiz() {
 
@@ -310,7 +311,7 @@ function hostRunningQuiz() {
 
     if(isAuthenticated === false) {
         router.push('/login');
-        return <>You aren't logged in.</>
+        return <ErrorMessage message={"You aren't logged in"}/>
     };
   
     return(

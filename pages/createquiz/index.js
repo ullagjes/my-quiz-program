@@ -22,6 +22,7 @@ import QuizForm from '../../components/FormComponents/QuizForm';
 import PageContainer from '../../components/PageComponents/PageContainer';
 import { 
     ButtonComponent, 
+    ErrorMessage, 
     SubTitle } from '../../components/BaseComponents';
 
 function CreateNewQuiz() {
@@ -66,7 +67,7 @@ function CreateNewQuiz() {
 
     if(isAuthenticated === false) {
         router.push('/login');
-        return <>You aren't logged in.</>
+        return <ErrorMessage message={"You aren't logged in"}/>
     };
   
     return (

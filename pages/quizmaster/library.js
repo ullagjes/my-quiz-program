@@ -9,7 +9,7 @@ import { useAuth } from '../../context/authContext';
 //STYLES
 import { useStyles } from './styles';
 //COMPONENTS
-import { SubTitle } from '../../components/BaseComponents';
+import { ErrorMessage, SubTitle } from '../../components/BaseComponents';
 import ListItem from '../../components/PageComponents/ListItem';
 import PageContainer from '../../components/PageComponents/PageContainer/';
 
@@ -32,7 +32,7 @@ function library() {
 
     if(isAuthenticated === false) {
         router.push('/login');
-        return <p className={classes.underTitle}>You aren't logged in.</p>
+        return <ErrorMessage message={"You aren't logged in."}/>
     };
 
     return (

@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
-    
     optionContainer: {
         display: 'flex',
         alignItems: 'center',
@@ -32,5 +31,5 @@ export const useStyles = makeStyles((theme) => ({
       height: 35,
       width: 35,
     }
-    })
-  );
+  })
+);

@@ -1,13 +1,16 @@
 import React from 'react';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid'
+import {
+    Backdrop, 
+    CircularProgress, 
+    Grid
+} from '@material-ui/core';
 import { UnderTitle } from '../../BaseComponents';
 import { useStyles } from './styles';
 
-
+//USED WHEN PARTICIPANT HAS ANSWERED QUESTION.
 function LockedScreenComponent({ screenLocked }) {
     const classes = useStyles();
+    
     return (
         <Backdrop className={classes.backdrop} open={screenLocked}>
             <Grid 

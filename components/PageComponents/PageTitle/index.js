@@ -1,9 +1,17 @@
 import React from 'react';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { 
+    Button, 
+    Grid, 
+    Typography
+} from '@material-ui/core';
 import { useStyles } from './styles';
 
-function PageTitle({ title, buttonText, onClick }) {
-
+//USED ON PAGES WITH GRID LAYOUT
+function PageTitle({ 
+    title, 
+    buttonText, 
+    onClick 
+}) {
     const classes = useStyles();
 
     return (

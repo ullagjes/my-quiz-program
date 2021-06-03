@@ -30,8 +30,7 @@ export const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         alignSelf: 'flex-end',
         paddingLeft: theme.spacing(5),
-        paddingBottom: theme.spacing(1),
-        
+        paddingBottom: theme.spacing(1), 
     }, 
     editIcon: {
         height: 30,

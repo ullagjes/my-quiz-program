@@ -23,17 +23,14 @@ import {
 //STYLE
 import { useStyles } from './styles';
 //COMPONENTS
-import { 
-    SubTitle,
-    ButtonComponent,
-    ErrorMessage, 
-} from '../../../components/BaseComponents';
+import { ErrorMessage } from '../../../components/BaseComponents';
 import ListItem from '../../../components/PageComponents/ListItem';
 import QuestionForm from '../../../components/FormComponents/QuestionForm';
 import PageContainer from '../../../components/PageComponents/PageContainer';
 import PageTitle from '../../../components/PageComponents/PageTitle';
 import LoadingComponent from '../../../components/PageComponents/LoadingComponent';
 
+//ALLOWS USER TO ADD QUESTIONS TO QUIZ IN LIBRARY
 function createQuestions () {
 
     const { user, loading, isAuthenticated } = useAuth();
@@ -134,7 +131,6 @@ function createQuestions () {
     }
 
     //AUTHENTICATION
-        
     if(loading){
         return <LoadingComponent />
     };
@@ -170,7 +166,13 @@ function createQuestions () {
                         {!smallScreen && 
                         <>
                             <Grid item>
-                                <Typography className={classes.title} variant={'h4'} component={'h2'}>Add a question to your quiz</Typography>
+                                <Typography 
+                                className={classes.title} 
+                                variant={'h4'} 
+                                component={'h2'}
+                                >
+                                    Add a question to your quiz
+                                </Typography>
                             </Grid>
                             <Grid item>
                                 <QuestionFormComponent />
@@ -199,7 +201,13 @@ function createQuestions () {
                     md={4}
                     >
                         <Grid item>
-                        <Typography className={classes.title} variant={'h4'} component={'h2'}>Your questions</Typography>
+                        <Typography 
+                        className={classes.title} 
+                        variant={'h4'}
+                        component={'h2'}
+                        >
+                            Your questions
+                        </Typography>
                         </Grid>
                         <Paper className={classes.questionContainer}>
                             {selectedQuizData && selectedQuizData.length !== 0 ? 
@@ -209,7 +217,6 @@ function createQuestions () {
                                         <Grid item key={index}>
                                             <ListItem 
                                             component={"h3"}
-                                            
                                             title={i.title}
                                             ariaLabelEdit={'Click to edit question'}
                                             handleEdit={() => router.push(`/createquiz/${id}/${i.id}`)}

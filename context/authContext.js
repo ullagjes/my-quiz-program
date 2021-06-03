@@ -1,16 +1,21 @@
-import React, { createContext, useEffect, useState, useContext } from 'react'
-import firebaseInstance from '../utils/firebase'
-import nookies from 'nookies'
+import React, { 
+    createContext, 
+    useEffect, 
+    useState, 
+    useContext 
+} from 'react';
+import firebaseInstance from '../utils/firebase';
+import nookies from 'nookies';
 
-const AuthContext = createContext({user: null})
+const AuthContext = createContext({user: null});
 
 //high order component
 export function AuthProvider({ children }) {
 
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     
-    const isAuthenticated = user !== null && loading === false
+    const isAuthenticated = user !== null && loading === false;
 
     useEffect(() => {
         return firebaseInstance.auth().onIdTokenChanged(async (user) => {
@@ -34,7 +39,6 @@ export function AuthProvider({ children }) {
         }, 10 * 60 * 1000)
 
         return clearInterval(handle)
-
     })
 
     return <AuthContext.Provider value={{user, loading, isAuthenticated}}>{children}</AuthContext.Provider>
@@ -44,4 +48,3 @@ export function AuthProvider({ children }) {
 export const useAuth = () => {
     return useContext(AuthContext)
 }
-

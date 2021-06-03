@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 
 import Link from 'next/link';
 
-import { Backdrop, Box, Button, IconButton, useMediaQuery } from '@material-ui/core';
+import {
+    Backdrop,
+    Box, 
+    Button, 
+    IconButton, 
+    useMediaQuery
+} from '@material-ui/core';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { useStyles } from './styles';
 import { LinkComponent } from '../../BaseComponents';
 
+//RENDERS NAVIGATION MENU IN ALL PAGES WHERE THERE IS USER-CONTEXT. 
+//WILL CHANGE ACCORDING TO SCREENSIZE.
 function NavComponent({ user }) {
-    
     const classes = useStyles();
     const smallScreen = useMediaQuery(`(max-width:600px)`)
     const [toggle, setToggle] = useState(false);
@@ -57,7 +64,10 @@ function NavComponent({ user }) {
                 {toggle && 
                 <Backdrop open={toggle} onClick={handleClick}>
                     <nav className={classes.mobileNavigation}>
-                        <IconButton className={classes.closeIconContainer} aria-label="close menu" onClick={handleClick}>
+                        <IconButton 
+                        className={classes.closeIconContainer} 
+                        aria-label="close menu" 
+                        onClick={handleClick}>
                             <CloseIcon className={classes.closeIcon}/>
                         </IconButton>
                         <NavigationLinks />

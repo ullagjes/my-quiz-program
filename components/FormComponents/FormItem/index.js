@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { useStyles } from './styles';
 
+//USED WITH FORMCOMPONENT. FORM ITEM WILL RENDER AN INPUT FIELD AND AN OPTIONAL CHECKBOX.
 function FormItem({
     largeTitle,
     fieldName, 
@@ -16,7 +17,6 @@ function FormItem({
     cbName, 
     cbText
 }) {
-    
     const classes = useStyles();
     
     return (

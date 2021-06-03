@@ -1,13 +1,16 @@
 import React from 'react';
 
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import {
+    Grid,
+    Container
+} from '@material-ui/core';
 
 import { useStyles } from './styles';
 import { SubTitle } from '../../BaseComponents';
 import ScoreBoard from '../ScoreBoard';
 
-
+//FINAL COMPONENT SHOWN WHEN QUIZ HAS ENDED
+//SHOWS FINAL SCOREBOARD
 function QuizEndedComponent({ 
     title, 
     subTitle,

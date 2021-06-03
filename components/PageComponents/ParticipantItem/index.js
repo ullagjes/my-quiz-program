@@ -4,8 +4,8 @@ import { UnderTitle } from '../../BaseComponents';
 
 import { useStyles } from './styles';
 
+//USED WHEN SHOWING PARTICIPANTS IN SCOREBOARD 
 function ParticipantItem({participant}) {
-
     const classes = useStyles();
 
     return (

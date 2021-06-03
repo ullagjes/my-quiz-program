@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { 
+    useEffect, 
+    useState 
+} from 'react';
 //ROUTER
 import { useRouter } from 'next/router';
 //CONTEXT
 import { useAuth } from '../../context/authContext';
 //UTILS
-import { countAnswers, resetQuiz } from '../../utils/firebaseHelpers';
+import { resetQuiz } from '../../utils/firebaseHelpers';
 import firebaseInstance from '../../utils/firebase';
-
+//MATERIAL-UI
+import { Paper } from '@material-ui/core';
 //COMPONENTS
 import WaitingroomComponent from '../../components/PageComponents/WaitingroomComponent';
 import { ShowOptionsComponent } from '../../components/PageComponents/ShowOptionsComponent';
@@ -16,6 +20,8 @@ import ShowPodium from '../../components/PageComponents/ShowPodium';
 import { ErrorMessage } from '../../components/BaseComponents';
 import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 
+//IS SHOWN ON QUIZMASTER'S SCREEN
+//WILL TOGGLE BETWEEN COMPONENTS DEPENDING ON SEVERAL BOOLEANS IN FIRESTORE
 function hostRunningQuiz() {
 
     //ID = QUIZPIN USED AS A FIRESTORE DOCUMENT ID
@@ -297,9 +303,9 @@ function hostRunningQuiz() {
 
     function NoQuizRunningComponent(){
         return(
-            <>
-            <p>No quiz here!</p>
-            </>
+            <Paper>
+                <p>No quiz here!</p>  
+            </Paper>
         )
     }
 

@@ -20,10 +20,7 @@ import { useStyles } from './styles';
 //COMPONENTS
 import QuizForm from '../../components/FormComponents/QuizForm';
 import PageContainer from '../../components/PageComponents/PageContainer';
-import { 
-    ButtonComponent, 
-    ErrorMessage, 
-    SubTitle } from '../../components/BaseComponents';
+import { ErrorMessage } from '../../components/BaseComponents';
 import PageTitle from '../../components/PageComponents/PageTitle';
 import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 

@@ -1,8 +1,10 @@
 import React from 'react';
 
-import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
+import {
+    Container,
+    CircularProgress,
+    Grid
+} from '@material-ui/core';
 
 import { useStyles } from './styles';
 import { 
@@ -12,6 +14,7 @@ import {
 } from '../../BaseComponents';
 import ParticipantItem from '../ParticipantItem';
 
+//IS RENDERED IN BOTH QUIZMASTER'S AND PARTICIPANT'S SCREEN WHEN QUIZ IS ACTIVE BUT NOT STARTED.
 function WaitingroomComponent({
     title, 
     subTitle, 

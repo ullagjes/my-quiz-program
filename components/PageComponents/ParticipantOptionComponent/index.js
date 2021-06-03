@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import React, { 
+    useState, 
+    useEffect 
+} from 'react';
+import {
+    Button,
+    Grid
+} from '@material-ui/core';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -8,7 +13,13 @@ import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 
 import { useStyles } from './styles';
 
-function ParticipantOptionComponent({classname, ariaLabel, onClick, iconName}) {
+//SHOWS PARTICIPANT OPTIONS THEY CAN CHOOSE
+function ParticipantOptionComponent({
+    classname, 
+    ariaLabel, 
+    onClick, 
+    iconName
+}) {
     const classes = useStyles();
     const one = classes.one;
     const two = classes.two;

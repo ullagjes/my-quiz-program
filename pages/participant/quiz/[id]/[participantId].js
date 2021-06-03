@@ -16,8 +16,9 @@ import WaitingroomComponent from '../../../../components/PageComponents/Waitingr
 import LockedScreenComponent from '../../../../components/PageComponents/LockedScreen';
 import ShowParticipantFeedback from '../../../../components/PageComponents/ShowParticipantFeedback';
 import QuizEndedComponent from '../../../../components/PageComponents/QuizEndedComponent';
-import { ButtonComponent } from '../../../../components/BaseComponents';
+import { ButtonComponent, ErrorMessage } from '../../../../components/BaseComponents';
 
+//PAGE WILL TOGGLE BETWEEN COMPONENTS DEPENDING ON THE BOOLEANS IN FIRESTORE
 function ParticipantQuizView() {
 
     const router = useRouter()
@@ -38,6 +39,7 @@ function ParticipantQuizView() {
     const [userPoints, setUserPoints] = useState(0)
     const [userFeedBack, setUserFeedBack] = useState('Please wait for the next question')
     const [participants, setParticipants] = useState([])
+    const [error, setError] = useState(false)
 
     //FIRESTORE REFS
     const participantDocument = firebaseInstance
@@ -127,6 +129,7 @@ function ParticipantQuizView() {
                 })
             })
             setCurrentQ(array)
+            setError(false)
         })
     }
 
@@ -164,6 +167,7 @@ function ParticipantQuizView() {
     async function submitAnswer(value){
         let check = await submitAnswerToFireStore(id, participantId, currentQ[0].id, value)
         if(check === true){
+            setError(true)
             setScreenLocked(true)
         }
         else {
@@ -200,11 +204,14 @@ function ParticipantQuizView() {
                     showProgress={true}
                     /> 
                 : ''}
-                {(!quizPending && !waitingRoomActive) ? 
+                {(!quizPending && !waitingRoomActive && !error) ? 
                 <ShowParticipantOptions 
                 question={currentQ}
                 onClick={submitAnswer}
                 />
+                : ''}
+                {(!quizPending && !waitingRoomActive && error) ? 
+                <ErrorMessage message={"You have already answered this one!"}/>
                 : ''}
                 {(screenLocked && !quizPending && !quizEnded) ? 
                 <LockedScreenComponent screenLocked={screenLocked}/>

@@ -14,6 +14,7 @@ const schema = Yup.object().shape({
     correctAnswers: Yup.array().of(Yup.string().required()).min(1, 'Please select one or more correct answers').required()
 });
 
+//COMPONENT USED TO RENDER FORM FOR QUESTIONS ADDED TO FIRESTORE
 function QuestionForm({ 
     initialValues, 
     onSubmit,

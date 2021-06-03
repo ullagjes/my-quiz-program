@@ -38,7 +38,7 @@ export async function checkForUserData(userId){
     return(array)
 
   } catch(error){
-      return console.log('error when fetching userdata',error)
+      return console.log('error when fetching userdata', error)
   }
 
 }
@@ -47,7 +47,7 @@ export async function handleSignOut(){
   try{
     await firebaseInstance.auth().signOut()
   } catch(error){
-    console.log(error)
+    console.log('error when signing out', error)
   }
 }
 
@@ -270,7 +270,6 @@ async function deleteEachUserAnswers(quizPin, participants){
     .doc(i.id)
     .delete()
   })
-
 }
 
 //==========================SHOW LIVE QUIZDATA
@@ -459,7 +458,6 @@ export async function submitAnswerToFireStore(
       if(doc.exists){
         return true
       } else {
-  
         questionDoc
         .collection('answers')
         .doc(userNickname)
@@ -471,12 +469,10 @@ export async function submitAnswerToFireStore(
         return false
       }
     })
-  
     return isAnswered
   } catch(error){
     console.log('error when submitting answer', error)
   }
-
 }
 
 export async function getCorrectAnswer(quizPin, questionId) {
@@ -496,12 +492,10 @@ export async function getCorrectAnswer(quizPin, questionId) {
   } catch(error){
     console.log('error when getting correct answer', error)
   }
-
 }
 
 export async function updateUserPoints(quizPin, userNickname, points) {
   if(points){
-
     try {
       const participantDocument = firebaseInstance
       .firestore()
@@ -520,10 +514,8 @@ export async function updateUserPoints(quizPin, userNickname, points) {
           console.log('error when updating points')
         }
       })
-      
     } catch (error){
-  
-      console.log('error with points', error)  
+        console.log('error with points', error)  
     }
   }
 }
@@ -537,7 +529,6 @@ export async function getAllParticipantScores(quizPin){
     .collection('participants')
     .where("isPlaying", "==", true)
     .get()
-      
       const array = []
 
       participantData.forEach(item => {
@@ -546,11 +537,8 @@ export async function getAllParticipantScores(quizPin){
           ...item.data()
         })
       })
-      console.log('participant scores', array)
       return(array)
-
   } catch(error){
     console.log('error when collection participant scores', error)
   }
-
 }

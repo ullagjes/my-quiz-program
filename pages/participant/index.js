@@ -16,12 +16,14 @@ import { Alert } from '@material-ui/lab';
 const schema = Yup.object().shape({
     pincode: Yup.string().required('Please add a pincode').label('Pincode'),
 });
-
+//PARTICIPANT IS ASKED TO ENTER THE UNIQUE PINCODE FOR THE QUIZ THEY WANT TO PARTICIPATE IN
+//PINCODE WILL ALLOW ACCESS TO SEE DATA IN FIRESTORE
 function Participant() {
     const router = useRouter();
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('error')
+
     async function onSubmit(values){
         const checked = await checkIfQuizExists(values.pincode)
         
@@ -63,7 +65,6 @@ function Participant() {
                 </Grid>
             </Grid>
         </PageContainer>
-        
     );
 }
 

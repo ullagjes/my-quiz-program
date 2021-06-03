@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
-
     title: {
         color: 'white',
         marginTop: theme.spacing(3),

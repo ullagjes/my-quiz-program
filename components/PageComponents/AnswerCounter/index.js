@@ -1,10 +1,10 @@
-import { Typography, Paper } from '@material-ui/core';
 import React from 'react';
+import { Typography, Paper } from '@material-ui/core';
 import { useStyles } from './styles';
 
+//RENDERS A COMPONENT THAT SHOWS HOW MANY PARTICIPANTS HAVE ANSWERED.
 function AnswerCounter({ participants, answers }) {
     const classes = useStyles()
-    console.log('participants:', participants)
     return (
         <>
             {participants === answers ? 

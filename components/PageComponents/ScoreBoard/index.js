@@ -12,7 +12,13 @@ import FaceIcon from '@material-ui/icons/Face';
 
 import { useStyles } from './styles';
 
-function ScoreBoard({title, participants, bpMd, participantId}) {
+//SCOREBOARD SHOWS ALL SCORES AND HIGHLIGHTS PARTICIPANT'S NAME
+function ScoreBoard({
+    title, 
+    participants, 
+    bpMd, 
+    participantId
+}) {
     const classes = useStyles()
 
     return (

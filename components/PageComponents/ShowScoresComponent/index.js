@@ -1,7 +1,8 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Fade from '@material-ui/core/Fade';
-
+import {
+    Grid,
+    Fade
+} from '@material-ui/core';
 import { useStyles } from './styles';
 import { 
     ButtonComponent, 
@@ -10,6 +11,7 @@ import {
 import  OptionComponent  from '../OptionComponent';
 import ScoreBoard from '../ScoreBoard';
 
+//SHOWS CURRENT SCOREBOARD AND CORRECT ANSWER(S) AFTER EACH QUESTION
 function ShowScoresComponent({
     participants, 
     question = '',

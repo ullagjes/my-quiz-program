@@ -11,7 +11,6 @@ export const useStyles = makeStyles((theme) => ({
     text: {
         color: theme.palette.secondary.contrastText,
     },
-
     listContainer: {
         backgroundColor: theme.palette.secondary.main,
         overflow: 'hidden',
@@ -22,7 +21,6 @@ export const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.contrastText,
         border: theme.borders.medium,
     },
-    
     listItem: {
         backgroundColor: theme.palette.secondary.dark,
         marginTop: theme.spacing(2),

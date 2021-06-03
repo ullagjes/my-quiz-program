@@ -5,8 +5,11 @@ import Container from '@material-ui/core/Container';
 import { useStyles } from './styles';
 import ParticipantOptionComponent from '../ParticipantOptionComponent';
 
+//IS RENDERED IN PARTICPANT'S SCREEN
+//SHOWS BUTTONS FOR EACH POSSIBLE ANSWER
 function ShowParticipantOptions({ question, onClick }) {
     const classes = useStyles();
+    
     return (
         <Container className={classes.container}>
             {question && question.map((i, index) => {

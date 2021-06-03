@@ -1,13 +1,16 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import { 
+    Button,
+    Grid,
+    Paper
+} from '@material-ui/core';
 
 import { useStyles } from './styles';
 import { LinkComponent } from '../../BaseComponents';
 import { Typography } from '@material-ui/core';
 
+//RE-USABLE FORM. CAN BE USED WITH AS MANY LISTITEMS AS YOU WANT.
 function FormComponent({ 
     children, 
     component,
@@ -29,7 +32,13 @@ function FormComponent({
         direction="column"
         className={classes.root}>
             {formTitle && <Grid item xs={12}>
-                <Typography variant={'h3'} component={component ? component : 'h2'} className={classes.title}>{formTitle}</Typography>
+                <Typography 
+                variant={'h3'} 
+                component={component ? component : 'h2'} 
+                className={classes.title}
+                >
+                    {formTitle}
+                </Typography>
             </Grid>}
             <Formik
             initialValues={initialValues}

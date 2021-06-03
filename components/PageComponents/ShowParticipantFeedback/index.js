@@ -7,6 +7,7 @@ import {
     UnderTitle 
 } from '../../BaseComponents';
 
+//SHOWS PARTICIPANT IF ANSWER IS RIGHT OR WRONG AND CURRENT POINTS
 function ShowParticipantFeedback({ userFeedBack, userPoints }) {
     const classes = useStyles()
 

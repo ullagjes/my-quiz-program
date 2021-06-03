@@ -5,8 +5,8 @@ import { useStyles } from './styles';
 import Container from '@material-ui/core/Container';
 import NavComponent from '../NavComponent';
 
+//USED AS A WRAP ON ALL PAGES
 function PageContainer({title = '', user, children}) {
-
     const classes = useStyles();
 
     return (

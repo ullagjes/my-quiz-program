@@ -1,12 +1,15 @@
-import  Card  from '@material-ui/core/Card';
-import  CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton'; 
+import React from 'react';
+import {
+    Card, 
+    CardContent, 
+    Typography, 
+    IconButton
+} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useStyles } from './styles';
 
-
+//USED IN DIFFERENT .MAP-FUNCTIONS TO RENDER DATA IN LISTS.
 export default function ListItem({
     component,
     title, 

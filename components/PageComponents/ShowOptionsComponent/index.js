@@ -1,14 +1,18 @@
 import React from 'react';
-
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core';
+import { 
+  Paper, 
+  Grid, 
+  Typography 
+} from '@material-ui/core';
 
 import { useStyles } from './styles';
 import { ButtonComponent } from '../../BaseComponents';
 import OptionComponent from '../OptionComponent';
 import AnswerCounter from '../AnswerCounter';
 
+//IS SHOWN ON QUIZMASTER'S SCREEN
+//SHOWS ALL CURRENT OPTIONS AND QUESTION
+//SHOWS HOW MANY HAVE ANSWERED 
 export function ShowOptionsComponent({
   title, 
   optionOne, 

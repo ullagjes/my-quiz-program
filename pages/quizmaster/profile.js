@@ -27,8 +27,9 @@ import {
 import PageContainer from '../../components/PageComponents/PageContainer';
 import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 
+//SHOWS QUIZMASTER THEIR PROFILE INFORMATION
+//PAGE CAN BE EXPANDED TO SHOW USERNAME, FULL NAME ETC.
 function profile() {
-
     const router = useRouter();
     
     const { userData } = useQuizMaster();

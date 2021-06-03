@@ -16,7 +16,6 @@ import { ErrorMessage } from '../../../components/BaseComponents'
 import LoadingComponent from '../../../components/PageComponents/LoadingComponent';
 
 function PreMade() {
-
     const router = useRouter();
 
     const { user, loading, isAuthenticated } = useAuth();
@@ -167,12 +166,11 @@ function PreMade() {
                 router.push(`/createquiz/${newQuizPin}`)
             }
         } else {
-            console.log('no pin')
+            alert('Something went wrong!')
         }
     }
 
     //AUTHENTICATION
-        
     if(loading){
         return <LoadingComponent />
     };

@@ -14,6 +14,7 @@ import {
 import PageContainer from '../../components/PageComponents/PageContainer';
 import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 
+//LANDINGPAGE WHEN QUIZMASTER HAR LOGGED IN TO THE SITE
 function quizMaster() {
     const classes = useStyles();
     const { user, loading, isAuthenticated } = useAuth();

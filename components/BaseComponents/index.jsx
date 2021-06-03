@@ -1,5 +1,9 @@
 
-import { Button, Typography, Link } from '@material-ui/core';
+import { 
+    Button, 
+    Typography, 
+    Link
+ } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert';
 
@@ -20,7 +24,7 @@ export function ErrorMessage({ message }){
     )
 }
 
-export function HeadLine({children}){
+export function HeadLine({ children }){
     return(
         <Typography
             component="h1" 

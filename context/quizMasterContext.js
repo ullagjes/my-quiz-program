@@ -17,10 +17,7 @@ const QuizMasterContext = createContext({
 
 export const QuizMaster = ({ children }) => {
 
-    const router = useRouter();
-
     const { user } = useAuth();
-
     const [quizes, setQuizes] = useState([]);
     const [userData, setUserData] = useState([])
 

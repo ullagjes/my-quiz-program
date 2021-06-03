@@ -1,17 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+    useEffect, 
+    useState 
+} from 'react';
+import {
+    Paper, 
+    Grid, 
+    Typography
+} from '@material-ui/core';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core';
-
 import { useStyles } from './styles';
-  
-  
-function OptionComponent({ classname, optionTitle, icon, bpSm }) {
+
+//USED TO SHOW CURRENT OPTIONS TO A QUESTION.
+function OptionComponent({ 
+    classname, 
+    optionTitle, 
+    icon, 
+    bpSm
+}) {
     const classes = useStyles();
 
     const one = classes.one
@@ -20,6 +29,7 @@ function OptionComponent({ classname, optionTitle, icon, bpSm }) {
     const four = classes.four
 
     const [selectedClass, setSelectedClass] = useState('')
+    
     useEffect(() => {
         if(classname === 'one'){
             setSelectedClass(one)

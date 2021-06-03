@@ -14,7 +14,7 @@ import ListItem from '../../components/PageComponents/ListItem';
 import PageContainer from '../../components/PageComponents/PageContainer/';
 import LoadingComponent from '../../components/PageComponents/LoadingComponent';
 
-
+//SHOWS ALL PREVIOUS QUIZES QUIZMASTER HAS CREATED
 function library() {
     const { quizes, userData } = useQuizMaster();
     const { loading, isAuthenticated } = useAuth();
@@ -24,7 +24,6 @@ function library() {
     const classes = useStyles();
 
     //AUTHENTICATION
-    
     if(loading){
         return <LoadingComponent />;
     };
